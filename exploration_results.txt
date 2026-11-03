@@ -1,0 +1,134 @@
+Loading dataset...
+
+==========================================
+DATASET OVERVIEW: 1,075,190 rows, 15 columns
+==========================================
+
+--- NUMERICAL SUMMARY STATISTICS ---
+          expertise     formality  spec_key_count
+count  1.075190e+06  1.075190e+06    1.075190e+06
+mean   2.999856e+00  2.999794e+00    1.912217e+01
+std    1.414203e+00  1.414222e+00    8.445995e+00
+min    1.000000e+00  1.000000e+00    2.000000e+00
+25%    2.000000e+00  2.000000e+00    1.200000e+01
+50%    3.000000e+00  3.000000e+00    1.600000e+01
+75%    4.000000e+00  4.000000e+00    2.400000e+01
+max    6.000000e+00  5.000000e+00    3.800000e+01
+
+--- CHART TYPE DISTRIBUTION ---
+                  Count  Percentage (%)
+chart_type                             
+heatmap          335373           31.19
+stacked_bar      250302           23.28
+barchart         143562           13.35
+grouped_scatter  137440           12.78
+table            129684           12.06
+grouped_line      23537            2.19
+grouped_dot       21859            2.03
+scatterplot       18483            1.72
+circular           5000            0.47
+grouped_area       4275            0.40
+line               2100            0.20
+histogram          1825            0.17
+dot                1350            0.13
+area                400            0.04
+
+--- CHART COMPLEXITY DISTRIBUTION ---
+                   Count  Percentage (%)
+chart_complexity                        
+medium            522782           48.62
+simple            329905           30.68
+complex           179202           16.67
+extra complex      43301            4.03
+
+--- DATASET SCHEMA DISTRIBUTION ---
+dataset_schema
+hubmap_2025-05-05        1025257
+MetabolomicsWorkbench      19000
+4DN                        15211
+MoTrPAC                    10875
+SenNet                      4847
+
+==================================================
+--- 10 INDIVIDUAL EXAMPLES ---
+==================================================
+
+[EXAMPLE 1]
+Chart Type       : table | Complexity: complex
+Expertise / Form : 2 / 2
+Natural Query    : Can you tell me how many datasets are missing the count of PCR cycles for sample indexing?
+Base Query       : How many datasets records have a null library_pcr_cycles_for_sample_index?
+Dataset Schema   : hubmap_2025-05-05
+Spec Snippet     : {"source": {"name": "datasets", "source": "./data/hubmap_2025-05-05/datasets.csv"}, "transformation": [{"derive": {"datasets Count": "count()"}}, {"filter": "d['library_pcr_cycles_for_sample_index'] != null"}, {"rollup":...
+
+[EXAMPLE 2]
+Chart Type       : heatmap | Complexity: complex
+Expertise / Form : 1 / 5
+Natural Query    : Are there observable groups when counting samples and factoring in preserving temperature and delay before cooling?
+Base Query       : Are there any clusters with respect to samples counts of specimen_preservation_temperature and warm_ischemia_time_unit?
+Dataset Schema   : hubmap_2025-05-05
+Spec Snippet     : {"source": {"name": "samples", "source": "./data/hubmap_2025-05-05/samples.csv"}, "transformation": [{"groupby": ["warm_ischemia_time_unit", "specimen_preservation_temperature"]}, {"rollup": {"count samples": {"op": "cou...
+
+[EXAMPLE 3]
+Chart Type       : table | Complexity: complex
+Expertise / Form : 5 / 1
+Natural Query    : What fraction of the DCC records have their project_local_id field as null?
+Base Query       : What percentage of dcc records have a null project_local_id?
+Dataset Schema   : MetabolomicsWorkbench
+Spec Snippet     : {"source": {"name": "dcc", "source": "./data/MetabolomicsWorkbench/dcc.tsv"}, "transformation": [{"derive": {"dcc Count": "count()"}}, {"filter": "d['project_local_id'] != null"}, {"rollup": {"Valid project_local_id Coun...
+
+[EXAMPLE 4]
+Chart Type       : table | Complexity: extra complex
+Expertise / Form : 1 / 5
+Natural Query    : What is the storage duration values' range for datasets associated with every cell boundary marker or stain?
+Base Query       : What is the range of datasets source_storage_duration_value values for every cell_boundary_marker_or_stain?
+Dataset Schema   : hubmap_2025-05-05
+Spec Snippet     : {"source": {"name": "datasets", "source": "./data/hubmap_2025-05-05/datasets.csv"}, "transformation": [{"filter": "d['source_storage_duration_value'] != null"}, {"groupby": "cell_boundary_marker_or_stain"}, {"rollup": {"...
+
+[EXAMPLE 5]
+Chart Type       : table | Complexity: extra complex
+Expertise / Form : 5 / 1
+Natural Query    : Please ascertain the spectrum of creation timestamps found within datasets corresponding to diverse origin samples of mapped organs.
+Base Query       : What is the range of datasets created_timestamp values for every origin_samples_unique_mapped_organs?
+Dataset Schema   : hubmap_2025-05-05
+Spec Snippet     : {"source": {"name": "datasets", "source": "./data/hubmap_2025-05-05/datasets.csv"}, "transformation": [{"filter": "d['created_timestamp'] != null"}, {"groupby": "origin_samples_unique_mapped_organs"}, {"rollup": {"create...
+
+[EXAMPLE 6]
+Chart Type       : table | Complexity: extra complex
+Expertise / Form : 2 / 5
+Natural Query    : Kindly provide details on the range of RNA inputs used in different library configurations.
+Base Query       : What is the range of datasets rnaseq_assay_input values for every library_layout?
+Dataset Schema   : hubmap_2025-05-05
+Spec Snippet     : {"source": {"name": "datasets", "source": "./data/hubmap_2025-05-05/datasets.csv"}, "transformation": [{"filter": "d['rnaseq_assay_input'] != null"}, {"groupby": "library_layout"}, {"rollup": {"rnaseq_assay_input min": {...
+
+[EXAMPLE 7]
+Chart Type       : circular | Complexity: medium
+Expertise / Form : 4 / 3
+Natural Query    : Construct a donut chart illustrating role_id distributions.
+Base Query       : Make a donut chart of role_id?
+Dataset Schema   : MetabolomicsWorkbench
+Spec Snippet     : {"source": {"name": "subject_role_taxonomy", "source": "./data/MetabolomicsWorkbench/subject_role_taxonomy.tsv"}, "transformation": [{"groupby": "role_id"}, {"rollup": {"frequency": {"op": "frequency"}}}], "representatio...
+
+[EXAMPLE 8]
+Chart Type       : heatmap | Complexity: medium
+Expertise / Form : 3 / 4
+Natural Query    : What is the average isolation count per analyte type given different methods of tissue separation?
+Base Query       : What is the average sc_isolation_cell_number for each analyte_class and sc_isolation_tissue_dissociation?
+Dataset Schema   : hubmap_2025-05-05
+Spec Snippet     : {"source": {"name": "datasets", "source": "./data/hubmap_2025-05-05/datasets.csv"}, "transformation": [{"groupby": ["sc_isolation_tissue_dissociation", "analyte_class"]}, {"rollup": {"average sc_isolation_cell_number": {...
+
+[EXAMPLE 9]
+Chart Type       : heatmap | Complexity: medium
+Expertise / Form : 2 / 5
+Natural Query    : Could you elucidate the average timeline for when different scanning methods and entities usually publish?
+Base Query       : What is the average published_timestamp for each ms_scan_mode and mapped_consortium?
+Dataset Schema   : hubmap_2025-05-05
+Spec Snippet     : {"source": {"name": "datasets", "source": "./data/hubmap_2025-05-05/datasets.csv"}, "transformation": [{"groupby": ["mapped_consortium", "ms_scan_mode"]}, {"rollup": {"average published_timestamp": {"op": "mean", "field"...
+
+[EXAMPLE 10]
+Chart Type       : barchart | Complexity: simple
+Expertise / Form : 1 / 3
+Natural Query    : What's the smallest amount of library yield each group manages?
+Base Query       : What is the minimum library_final_yield_value for each mapped_consortium?
+Dataset Schema   : hubmap_2025-05-05
+Spec Snippet     : {"source": {"name": "datasets", "source": "./data/hubmap_2025-05-05/datasets.csv"}, "transformation": [{"groupby": "mapped_consortium"}, {"rollup": {"minimum library_final_yield_value": {"op": "min", "field": "library_fi...
